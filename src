@@ -1,1 +1,25 @@
 
+import sys
+import os
+from os.path import join
+
+from IPython import display
+import tensorflow as tf
+import numpy as np
+
+seed = 42
+tf.random.set_seed(seed)
+np.random.seed(seed)
+
+
+def listdir(a, *p):
+    return os.listdir(join(a, *p))
+
+def get_path(path):
+    data = []
+    for reader in listdir(path):
+        if(reader != ('audioMNIST_meta.txt')):
+            files = sorted(listdir(path, reader))
+            for i in range(0, len(files), 1):
+                data.append(join(path, reader, files[i]))
+    return data
